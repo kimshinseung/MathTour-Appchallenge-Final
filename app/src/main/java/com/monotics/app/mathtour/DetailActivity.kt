@@ -560,6 +560,7 @@ class DetailActivity : AppCompatActivity(){
 
         fun gotosite(itemName: String) {
             when (itemName) {
+
                 "1.국립 고궁 박물관" -> {
                     val url = "kakaomap://route?sp=${lat},${log}&ep=37.5766084,126.974951&by=FOOT"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -572,33 +573,33 @@ class DetailActivity : AppCompatActivity(){
                 }
 
                 "3.경복궁" -> {
-                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.579617,126.977041&by=FOOT"
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    activity.startActivity(intent)
-                }
-                "4.경회루" -> {
                     val url = "kakaomap://route?sp=${lat},${log}&ep=37.5785635,126.9769535&by=FOOT"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     activity.startActivity(intent)
                 }
+                "4.경회루" -> {
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.5797077, 126.9758797&by=FOOT"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    activity.startActivity(intent)
+                }
                 "5.경복궁" -> {
-                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.5767345,126.9833623&by=FOOT"
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.579617, 126.977041&by=FOOT"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     activity.startActivity(intent)
 
                 }
                 "6.동십자각" -> {
-                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.5770987,126.9897786&by=FOOT"
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.5760892, 126.9793858&by=FOOT"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     activity.startActivity(intent)
                 }
                 "7.서울 공예 박물관" -> {
-                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.5797077,126.9758797&by=FOOT"
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.5767345, 126.9833623&by=FOOT"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     activity.startActivity(intent)
                 }
                 "8.우리 소리 박물관" -> {
-                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.5760892,126.9793858&by=FOOT"
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.5770987, 126.9897786&by=FOOT"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     activity.startActivity(intent)
                 }
