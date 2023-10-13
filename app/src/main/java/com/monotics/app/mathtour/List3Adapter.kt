@@ -42,7 +42,7 @@ class List3Adapter(
             viewHolder.imgitem.setImageBitmap(img)
 
         }else{ //찍은 사진 없을 때
-            viewHolder.imgitem.setImageResource(imgList[position])
+            viewHolder.imgitem.setImageResource(itemlist[position])
         }
 
         viewHolder.infocourse.text = nameList[position]

@@ -159,6 +159,23 @@ class MapFragment : Fragment(),ConfirmDialogInterface {
             dialog.isCancelable = false
             dialog.show(activity?.supportFragmentManager!!, "ConfirmDialog")
         }
+        else if(address == "suwon"){
+            val dialog = ConfirmDialog(
+                this, "14코스) 수원화성 코스에 " +
+                        "입장하시겠습니까?", address, "nocomplete"
+            )
+            dialog.isCancelable = false
+            dialog.show(activity?.supportFragmentManager!!, "ConfirmDialog")
+        }
+        else if(address == "suwon-success"){
+            val dialog = ConfirmDialog(
+                this, "완주한 코스입니다!  " +
+                        "다시 입장하시겠습니까?", address, "complete"
+            )
+            dialog.isCancelable = false
+            dialog.show(activity?.supportFragmentManager!!, "ConfirmDialog")
+        }
+        
         else{
             Toast.makeText(context, "미구현된 코스입니다. 현재 경복궁 코스만이 구현되어 있습니다.", Toast.LENGTH_SHORT).show()
 //            val dialog = ConfirmDialog(

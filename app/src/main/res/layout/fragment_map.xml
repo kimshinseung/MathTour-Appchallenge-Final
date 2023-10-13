@@ -98,7 +98,7 @@
                     android:layout_width="40sp"
                     android:layout_height="40sp"
                     android:layout_marginStart="2dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/pin3"
                     app:layout_constraintStart_toEndOf="@+id/susan"
                     app:layout_constraintTop_toBottomOf="@+id/suwon" />
@@ -217,8 +217,8 @@
                     android:id="@+id/suwon"
                     android:layout_width="40sp"
                     android:layout_height="40sp"
-                    android:layout_marginStart="128dp"
-                    android:layout_marginTop="53dp"
+                    android:layout_marginStart="112dp"
+                    android:layout_marginTop="72dp"
                     android:src="@drawable/pin3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

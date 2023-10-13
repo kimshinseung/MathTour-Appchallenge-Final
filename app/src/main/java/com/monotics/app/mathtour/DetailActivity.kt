@@ -47,12 +47,14 @@ class DetailActivity : AppCompatActivity(){
     lateinit var mLastLocation: Location // 위치 값을 가지고 있는 객체
     internal lateinit var mLocationRequest: LocationRequest // 위치 정보 요청의 매개변수를 저장하는
     private val REQUEST_PERMISSION_LOCATION = 10
+    var address1 = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         val address = intent?.getSerializableExtra("loc") as String
+        address1 = address
 
         mLocationRequest =  LocationRequest.create().apply {
             interval = 3000 // 업데이트 간격
@@ -85,41 +87,72 @@ class DetailActivity : AppCompatActivity(){
 
         val pref = getSharedPreferences("solved_problem_count", AppCompatActivity.MODE_PRIVATE) //shared key 설정
         val edit = pref?.edit() // 수정모드
+        if(address1=="gyungbuk" || address1 == "gyungbuk-success") { //경복궁
 
-        val gyungbukcourse = pref?.getInt("gogung_solved",0)?.plus(pref?.getInt("gogung_solved2",0)!!)
-            ?.plus(pref?.getInt("gyungbuk_solved",0)!!)?.plus(pref?.getInt("gyungbuk_solved2",0)!!)
-            ?.plus(pref?.getInt("gongyae_solved",0)!!)?.plus(pref?.getInt("sori_solved",0)!!
-            )?.plus(pref?.getInt("gyunghiru_solved",0)!!)
-            ?.plus(pref?.getInt("dongsibjagak_solved",0)!!)
-        if(pref?.getInt("gogung_solved",0) == 0){
-            nosolved+="1 "
-            //mapView?.removePOIItem()
+            val gyungbukcourse =
+                pref?.getInt("gogung_solved", 0)?.plus(pref?.getInt("gogung_solved2", 0)!!)
+                    ?.plus(pref?.getInt("gyungbuk_solved", 0)!!)
+                    ?.plus(pref?.getInt("gyungbuk_solved2", 0)!!)
+                    ?.plus(pref?.getInt("gongyae_solved", 0)!!)?.plus(
+                        pref?.getInt("sori_solved", 0)!!
+                    )?.plus(pref?.getInt("gyunghiru_solved", 0)!!)
+                    ?.plus(pref?.getInt("dongsibjagak_solved", 0)!!)
+            if (pref?.getInt("gogung_solved", 0) == 0) {
+                nosolved += "1 "
+                //mapView?.removePOIItem()
+            }
+            if (pref?.getInt("gogung_solved2", 0) == 0) {
+                nosolved += "2 "
+            }
+            if (pref?.getInt("gyungbuk_solved2", 0) == 0) {
+                nosolved += "3 "
+            }
+            if (pref?.getInt("gyunghiru_solved", 0) == 0) {
+                nosolved += "4 "
+            }
+            if (pref?.getInt("gyungbuk_solved", 0) == 0) {
+                nosolved += "5 "
+            }
+            if (pref?.getInt("dongsibjagak_solved", 0) == 0) {
+                nosolved += "6 "
+            }
+            if (pref?.getInt("gongyae_solved", 0) == 0) {
+                nosolved += "7 "
+            }
+            if (pref?.getInt("sori_solved", 0) == 0) {
+                nosolved += "8 "
+            }
+            if (nosolved == "") {
+                binding.quizNum.text = "모든 문제를 푸셨습니다!"
+            } else {
+                binding.quizNum.text = nosolved.toString()
+            }
         }
-        if(pref?.getInt("gogung_solved2",0) == 0){
-            nosolved+="2 "
-        }
-        if(pref?.getInt("gyungbuk_solved2",0) == 0){
-            nosolved+="3 "
-        }
-        if(pref?.getInt("gyunghiru_solved",0) == 0){
-            nosolved+="4 "
-        }
-        if(pref?.getInt("gyungbuk_solved",0) == 0){
-            nosolved+="5 "
-        }
-        if(pref?.getInt("dongsibjagak_solved",0) == 0){
-            nosolved+="6 "
-        }
-        if(pref?.getInt("gongyae_solved",0) == 0){
-            nosolved+="7 "
-        }
-        if(pref?.getInt("sori_solved",0) == 0){
-            nosolved+="8 "
-        }
-        if(nosolved==""){
-            binding.quizNum.text = "모든 문제를 푸셨습니다!"
-        }else {
-            binding.quizNum.text = nosolved.toString()
+        else if(address1=="suwon" || address1 == "suwon-success"){ //수원
+            if (pref?.getInt("hanggung_solved", 0) == 0) {
+                nosolved += "1 "
+                //mapView?.removePOIItem()
+            }
+            if (pref?.getInt("artmuseum_solved", 0) == 0) {
+                nosolved += "2 "
+            }
+            if (pref?.getInt("hanok_solved", 0) == 0) {
+                nosolved += "3 "
+            }
+            if (pref?.getInt("janganmoon_solved", 0) == 0) {
+                nosolved += "4 "
+            }
+            if (pref?.getInt("booksuporu_solved", 0) == 0) {
+                nosolved += "5 "
+            }
+            if (pref?.getInt("hwasumoon_solved", 0) == 0) {
+                nosolved += "6 "
+            }
+            if (nosolved == "") {
+                binding.quizNum.text = "모든 문제를 푸셨습니다!"
+            } else {
+                binding.quizNum.text = nosolved.toString()
+            }
         }
     }
     private fun startLocationUpdates() {
@@ -189,7 +222,7 @@ class DetailActivity : AppCompatActivity(){
     //처음 맵 시작
     private fun initMapView(address: String){
         val mapView = MapView(this)
-        lis = OnMarkerClickedEvent(this,this)
+        lis = OnMarkerClickedEvent(this,this,address)
         mapView.setPOIItemEventListener(lis)
         binding.mapView.addView(mapView)
         //처음 가비지값 넣은 마커 생성
@@ -218,7 +251,7 @@ class DetailActivity : AppCompatActivity(){
 
         }
 
-        if(address=="gyungbuk" || address == "gyungbuk-success"){
+        if(address=="gyungbuk" || address == "gyungbuk-success"){ //경복궁 코스
             mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.5767345, 126.9833623), true)
             mapView.setZoomLevel(3,true)
             createMarker(mapView,"1.국립 고궁 박물관",37.5766084, 126.974951,1,R.drawable.gogung)
@@ -278,7 +311,45 @@ class DetailActivity : AppCompatActivity(){
             binding.totaldistance.text = "거 리 : 약 2.0km"
 
 
-        }else{
+        }else if(address=="suwon"|| address == "suwon-success"){
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.284739,127.0110021), true)
+            mapView.setZoomLevel(3,true)
+            createMarker(mapView,"1.화성행궁광장",37.2817679,127.0156523,1,R.drawable.gogung)
+            createMarker(mapView,"2.수원시립미술관",37.2826875,127.0158125,2,R.drawable.gogung2)
+
+            createMarker(mapView,"3.한옥기술전시관",37.2866063,127.0150587,3,R.drawable.gongyae)
+
+            createMarker(mapView,"4.장안문",37.2888038,127.0142055,4,R.drawable.gyeongbuk)
+
+            createMarker(mapView,"5.북서포루",37.2872404,127.0122874,5,R.drawable.dongsibjagak2)
+            createMarker(mapView,"6.화서문",37.285556,127.0096641,6,R.drawable.gogung)
+
+
+            //선 그리기
+            val polyline = MapPolyline()
+            polyline.tag = 1000
+            polyline.lineColor = Color.parseColor("#004C60")
+            //polyline.lineColor = Color.argb(150, 31, 28, 40) // Polyline 컬러 지정.
+
+
+            // Polyline 좌표 지정.
+            polyline.addPoint(MapPoint.mapPointWithGeoCoord(37.2817679,127.0156523)) //행궁광장
+            polyline.addPoint(MapPoint.mapPointWithGeoCoord(37.2826875,127.0158125))//수원시립미술관
+            polyline.addPoint(MapPoint.mapPointWithGeoCoord(37.2836118,127.0159928))
+            polyline.addPoint(MapPoint.mapPointWithGeoCoord(37.2866063,127.0150587))//한옥기술전시관
+            polyline.addPoint(MapPoint.mapPointWithGeoCoord(37.2888038,127.0142055))//장안문
+            polyline.addPoint(MapPoint.mapPointWithGeoCoord(37.2872404,127.0122874))//북서포루
+            polyline.addPoint(MapPoint.mapPointWithGeoCoord(37.285556,127.0096641))//화서문
+            // Polyline 지도에 올리기
+            mapView.addPolyline(polyline)
+
+            //현재 위치
+
+            //거리 및 시간
+            binding.totaltime.text = "소요 시간 : 약 25분"
+            binding.totaldistance.text = "거 리 : 약 1.7km"
+        }
+        else{
             mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(35.9174022, 127.8172645), true)
             mapView.setZoomLevel(12,true)
             createPin(mapView,"1코스) 서울 경복궁",37.579617, 126.977041,1)
@@ -379,16 +450,60 @@ class DetailActivity : AppCompatActivity(){
 
     }
 
-    class OnMarkerClickedEvent(val context: Context,val activity: Activity) : MapView.POIItemEventListener{
+    class OnMarkerClickedEvent(val context: Context,val activity: Activity,val address: String) : MapView.POIItemEventListener{
         override fun onPOIItemSelected(mapView: MapView?, marker: MapPOIItem?) {
             when (marker?.tag) {
                 1 -> { //국립 고궁 박물관
-                    mapView?.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.5766084, 126.974951), true)
-                    mapView?.setZoomLevel(1,true)
+                    if(marker?.itemName=="1.화성행궁광장"){
+                        mapView?.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.2817679,127.0156523), true)
+                        mapView?.setZoomLevel(1,true)
+                    }else {
+                        mapView?.setMapCenterPoint(
+                            MapPoint.mapPointWithGeoCoord(
+                                37.5766084,
+                                126.974951
+                            ), true
+                        )
+                        mapView?.setZoomLevel(1, true)
+                    }
+                }
+                2->{
+                    if(marker?.itemName=="2.수원시립미술관"){
+                        mapView?.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.2826875,127.0158125), true)
+                        mapView?.setZoomLevel(1,true)
+                    }
+                }
+                3->{
+                    if(marker?.itemName=="3.한옥기술전시관"){
+                        mapView?.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.2866063,127.0150587), true)
+                        mapView?.setZoomLevel(1,true)
+                    }
+                }
+                4->{
+                    if(marker?.itemName=="4.장안문"){
+                        mapView?.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.2888038,127.0142055), true)
+                        mapView?.setZoomLevel(1,true)
+                    }
                 }
                 5 -> { // 경복궁
-                    mapView?.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.579617, 126.977041), true)
-                    mapView?.setZoomLevel(1,true)
+                    if(marker?.itemName=="5.북서포루"){
+                        mapView?.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.2872404,127.0122874), true)
+                        mapView?.setZoomLevel(1,true)
+                    }else {
+                        mapView?.setMapCenterPoint(
+                            MapPoint.mapPointWithGeoCoord(
+                                37.579617,
+                                126.977041
+                            ), true
+                        )
+                        mapView?.setZoomLevel(1, true)
+                    }
+                }
+                6->{
+                    if(marker?.itemName=="6.화서문"){
+                        mapView?.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.285556,127.0096641), true)
+                        mapView?.setZoomLevel(1,true)
+                    }
                 }
                 7 -> { //서울 공예 박물관
                     mapView?.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.5767345, 126.9833623), true)
@@ -430,7 +545,7 @@ class DetailActivity : AppCompatActivity(){
                 }
 
 
-                1 -> { //국립 고궁 박물관
+                1 -> { //국립 고궁 박물관, 화성행궁광장
                     val builder = AlertDialog.Builder(context)
                     val itemList = arrayOf("문제 풀기", "길 찾기", "취소")
                     builder.setTitle("${p1?.itemName}")
@@ -444,7 +559,7 @@ class DetailActivity : AppCompatActivity(){
                     builder.show()
 
                 }
-                2 -> { // 국립고궁박물관 2
+                2 -> { // 국립고궁박물관 2, 수원시립미술관
                     val builder = AlertDialog.Builder(context)
                     val itemList = arrayOf("문제 풀기", "길 찾기", "취소")
                     builder.setTitle("${p1?.itemName}")
@@ -459,7 +574,7 @@ class DetailActivity : AppCompatActivity(){
                 }
 
 
-                3 -> { //경복궁2
+                3 -> { //경복궁2 , 한옥기술전시관
                     val builder = AlertDialog.Builder(context)
                     val itemList = arrayOf("문제 풀기", "길 찾기", "취소")
                     builder.setTitle("${p1?.itemName}")
@@ -472,7 +587,7 @@ class DetailActivity : AppCompatActivity(){
                     }
                     builder.show()
                 }
-                4 -> { //경회루
+                4 -> { //경회루 , 장안문
                     val builder = AlertDialog.Builder(context)
                     val itemList = arrayOf("문제 풀기", "길 찾기", "취소")
                     builder.setTitle("${p1?.itemName}")
@@ -485,7 +600,7 @@ class DetailActivity : AppCompatActivity(){
                     }
                     builder.show()
                 }
-                5 -> { //경복궁
+                5 -> { //경복궁, 북서포루
                     val builder = AlertDialog.Builder(context)
                     val itemList = arrayOf("문제 풀기", "길 찾기", "취소")
                     builder.setTitle("${p1?.itemName}")
@@ -500,7 +615,7 @@ class DetailActivity : AppCompatActivity(){
                 }
                 
                 
-                6-> { //동십자각
+                6-> { //동십자각, 화서문
                     val builder = AlertDialog.Builder(context)
                     val itemList = arrayOf("문제 풀기", "길 찾기", "취소")
                     builder.setTitle("${p1?.itemName}")
@@ -552,7 +667,8 @@ class DetailActivity : AppCompatActivity(){
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             val itemList = hashMapOf(
                 "tag" to p1?.tag,
-                "name" to p1?.itemName
+                "name" to p1?.itemName,
+                "address" to address
             )
             intent.putExtra("map",itemList)
             activity.startActivity(intent)
@@ -603,7 +719,38 @@ class DetailActivity : AppCompatActivity(){
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     activity.startActivity(intent)
                 }
-
+                
+                //수원화성
+                "1.화성행궁광장" -> {
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.2817679,127.0156523&by=FOOT"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    activity.startActivity(intent)
+                }
+                "2.수원시립미술관" -> {
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.2826875,127.0158125&by=FOOT"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    activity.startActivity(intent)
+                }
+                "3.한옥기술전시관" -> {
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.2866063,127.0150587&by=FOOT"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    activity.startActivity(intent)
+                }
+                "4.장안문" -> {
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.2888038,127.0142055&by=FOOT"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    activity.startActivity(intent)
+                }
+                "5.북서포루" -> {
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.2872404,127.0122874&by=FOOT"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    activity.startActivity(intent)
+                }
+                "6.화서문" -> {
+                    val url = "kakaomap://route?sp=${lat},${log}&ep=37.2855506,127.0096641&by=FOOT"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    activity.startActivity(intent)
+                }
 
 
 
