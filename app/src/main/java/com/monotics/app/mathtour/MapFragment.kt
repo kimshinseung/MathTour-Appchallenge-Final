@@ -42,6 +42,20 @@ class MapFragment : Fragment(),ConfirmDialogInterface {
             edit2?.putInt("solved_course1", 0) // 값 넣기
             edit2?.apply() // 적용하기
         }
+
+        val suwoncourse = pref?.getInt("hanggung_solved",0)?.plus(pref?.getInt("artmuseum_solved",0)!!)
+            ?.plus(pref?.getInt("hanok_solved",0)!!)?.plus(pref?.getInt("janganmoon_solved",0)!!)
+            ?.plus(pref?.getInt("booksuporu_solved",0)!!)?.plus(pref?.getInt("hwasumoon_solved",0)!!
+            )
+        if(suwoncourse == 6){
+            binding.suwon.setImageResource(R.drawable.success2)
+            edit2?.putInt("solved_course14", 1) // 값 넣기
+            edit2?.apply() // 적용하기
+        }else{
+            binding.suwon.setImageResource(R.drawable.pin3)
+            edit2?.putInt("solved_course14", 0) // 값 넣기
+            edit2?.apply() // 적용하기
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,6 +71,10 @@ class MapFragment : Fragment(),ConfirmDialogInterface {
             ?.plus(pref?.getInt("gongyae_solved",0)!!)?.plus(pref?.getInt("sori_solved",0)!!
             )?.plus(pref?.getInt("gyunghiru_solved",0)!!)
             ?.plus(pref?.getInt("dongsibjagak_solved",0)!!)
+        val suwoncourse = pref?.getInt("hanggung_solved",0)?.plus(pref?.getInt("artmuseum_solved",0)!!)
+            ?.plus(pref?.getInt("hanok_solved",0)!!)?.plus(pref?.getInt("janganmoon_solved",0)!!)
+            ?.plus(pref?.getInt("booksuporu_solved",0)!!)?.plus(pref?.getInt("hwasumoon_solved",0)!!
+            )
 
         //완주 코스
         val pref2 =activity?.getSharedPreferences("solved_course", AppCompatActivity.MODE_PRIVATE) //shared key 설정
@@ -70,6 +88,15 @@ class MapFragment : Fragment(),ConfirmDialogInterface {
         }else{
             binding.gyungbuk.setImageResource(R.drawable.pin3)
             edit2?.putInt("solved_course1", 0) // 값 넣기
+            edit2?.apply() // 적용하기
+        }
+        if(suwoncourse == 6){
+            binding.suwon.setImageResource(R.drawable.success2)
+            edit2?.putInt("solved_course14", 1) // 값 넣기
+            edit2?.apply() // 적용하기
+        }else{
+            binding.suwon.setImageResource(R.drawable.pin3)
+            edit2?.putInt("solved_course14", 0) // 값 넣기
             edit2?.apply() // 적용하기
         }
 
@@ -117,7 +144,11 @@ class MapFragment : Fragment(),ConfirmDialogInterface {
             selectedItem("chungbuk")
         }
         binding.suwon.setOnClickListener {
-            selectedItem("suwon")
+            if(suwoncourse == 6){
+                selectedItem("suwon-success")
+            }else {
+                selectedItem("suwon")
+            }
         }
         binding.jeju.setOnClickListener {
             selectedItem("jeju")
@@ -177,7 +208,7 @@ class MapFragment : Fragment(),ConfirmDialogInterface {
         }
         
         else{
-            Toast.makeText(context, "미구현된 코스입니다. 현재 경복궁 코스만이 구현되어 있습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "미구현된 코스입니다. 현재 경복궁 코스와 수원화성코스가 구현되어 있습니다.", Toast.LENGTH_SHORT).show()
 //            val dialog = ConfirmDialog(
 //                this, "미완성된 코스입니다 입장하시겠습니까?", address
 //            )

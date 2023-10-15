@@ -32,11 +32,11 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
     
     //수원
     private val hanggung_answer = "1"
-    private val artmuseum_answer = "1"
+    private val artmuseum_answer = "2"
     private val hanok_answer = "3"
-    private val janganmoon_answer = "3"
+    private val janganmoon_answer = "2"
     private val booksuporu_answer = "4"
-    private val hwasumoon_answer = "2"
+    private val hwasumoon_answer = "3"
 
 
     private val PICK_IMAGE_REQUEST = 1
@@ -62,12 +62,12 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
             lateinit var imageBitmap: Bitmap
 
-            if(address == "gyungbuk"){
+            if(address == "gyungbuk"||address == "gyungbuk-success"){
                 if (tag != null) {
                     edit?.putString("gyungbukcourse${tag}" , converter.bitmapToString(bitmap))
                 } // 값 넣기
                 edit?.apply() // 적용하기
-            }else if(address == "suwon"){
+            }else if(address == "suwon"||address == "suwon-success"){
                 if (tag != null) {
                     edit?.putString("suwoncourse${tag}" , converter.bitmapToString(bitmap))
                 } // 값 넣기
@@ -94,7 +94,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
         val answer = binding.answerBtn.text //정답란 텍스트
 
-        if(address =="gyungbuk") { //경복궁 퀴즈
+        if(address =="gyungbuk"||address == "gyungbuk-success") { //경복궁 퀴즈
             //이름 변경
             if (inf["name"] == "1.국립 고궁 박물관") {
                 binding.coursename.text = "경복궁 코스 - 국립고궁박물관"
@@ -104,8 +104,8 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
             } else if (inf["name"] == "5.경복궁") {
                 binding.coursename.text = "경복궁 코스 - 경복궁"
-                //binding.quizImg.setImageResource(R.mipmap.quiz5)
-                Glide.with(this).load(R.drawable.cycloid).override(560, 560).into(binding.quizImg)
+                binding.quizImg.setImageResource(R.mipmap.quiz5)
+                //Glide.with(this).load(R.drawable.cycloid).override(560, 560).into(binding.quizImg)
                 binding.quizText.text = getString(R.string.gyungbuk)
                 binding.quizTextAnsList.text = getString(R.string.gyungbukans)
 
@@ -145,44 +145,44 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                 binding.quizTextAnsList.text = getString(R.string.gyungbuk2ans)
             }
         }
-        else if(address =="suwon"){//수원 퀴즈
+        else if(address == "suwon"||address == "suwon-success"){//수원 퀴즈
             if (inf["name"] == "1.화성행궁광장") {
                 binding.coursename.text = "수원화성 코스 - 화성행궁광장"
-                binding.quizText.text = getString(R.string.gogung)
-                binding.quizImg.setImageResource(R.mipmap.quiz1)
-                binding.quizTextAnsList.text = getString(R.string.gogungans)
+                binding.quizText.text = getString(R.string.hanggung)
+                binding.quizImg.setImageResource(R.mipmap.quiz141)
+                binding.quizTextAnsList.text = getString(R.string.hanggungans)
 
             } else if (inf["name"] == "3.한옥기술전시관") {
                 binding.coursename.text = "수원화성 코스 - 한옥기술전시관"
-                //binding.quizImg.setImageResource(R.mipmap.quiz5)
-                Glide.with(this).load(R.drawable.cycloid).override(560, 560).into(binding.quizImg)
-                binding.quizText.text = getString(R.string.gyungbuk)
-                binding.quizTextAnsList.text = getString(R.string.gyungbukans)
+                binding.quizImg.setImageResource(R.mipmap.quiz143)
+                binding.quizText.text = getString(R.string.hanok)
+                binding.quizTextAnsList.text = getString(R.string.hanokans)
 
             } else if (inf["name"] == "4.장안문") {
                 binding.coursename.text = "수원화성 코스 - 장안문"
-                binding.quizImg.setImageResource(R.mipmap.quiz7)
-                binding.quizText.text = getString(R.string.gongyae)
-                binding.quizTextAnsList.text = getString(R.string.gongyaeans)
+                binding.quizImg.setImageResource(R.mipmap.quiz144)
+                binding.quizText.text = getString(R.string.janganmoon)
+                binding.quizTextAnsList.text = getString(R.string.janganmoonans)
             } else if (inf["name"] == "6.화서문") {
                 binding.coursename.text = "수원화성 코스 - 화서문"
-                binding.quizImg.setImageResource(R.mipmap.quiz8)
-                binding.quizText.text = getString(R.string.sori)
-                binding.quizTextAnsList.text = getString(R.string.sorians)
+                Glide.with(this).load(R.drawable.car2).override(700, 560).into(binding.quizImg)
+                //binding.quizImg.setImageResource(R.mipmap.quiz146)
+                binding.quizText.text = getString(R.string.hwasumoon)
+                binding.quizTextAnsList.text = getString(R.string.hwasumoonans)
             }
             else if (inf["name"] == "2.수원시립미술관") {
                 binding.cameraBtn.visibility = View.INVISIBLE
                 binding.coursename.text = "수원화성 코스 - 수원시립미술관"
-                binding.quizImg.setImageResource(R.mipmap.quiz4)
-                binding.quizText.text = getString(R.string.gyunghiru)
-                binding.quizTextAnsList.text = getString(R.string.gyunghiruans)
+                binding.quizImg.setImageResource(R.mipmap.quiz142)
+                binding.quizText.text = getString(R.string.artmuseum)
+                binding.quizTextAnsList.text = getString(R.string.artmuseumans)
             }
             else if (inf["name"] == "5.북서포루") {
                 binding.cameraBtn.visibility = View.INVISIBLE
                 binding.coursename.text = "수원화성 코스 - 북서포루"
-                binding.quizImg.setImageResource(R.mipmap.quiz4)
-                binding.quizText.text = getString(R.string.gyunghiru)
-                binding.quizTextAnsList.text = getString(R.string.gyunghiruans)
+                binding.quizImg.setImageResource(R.mipmap.quiz145)
+                binding.quizText.text = getString(R.string.booksuporu)
+                binding.quizTextAnsList.text = getString(R.string.booksuporuans)
             }
         }
 
@@ -216,7 +216,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
             //제출 버튼 클릭 시 동작코드
         binding.corBtn.setOnClickListener{
 
-            if(address == "gyungbuk"){
+            if(address == "gyungbuk"||address == "gyungbuk-success"){
                 //경복궁
                 if(inf["name"] == "1.국립 고궁 박물관"){ // 국립고궁박물관 문제
                     if(answer.toString() == gogung_answer){ //정답
@@ -226,7 +226,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 국립고궁박물관입니다", "correct","2.국립 고궁 박물관",2
+                                    "다음 문제 위치는 국립고궁박물관입니다", "correct","2.국립 고궁 박물관",2,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -238,7 +238,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         //Toast.makeText(this,"오답입니다, 다시 풀어보겠습니까?", Toast.LENGTH_LONG).show()
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",1
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",1,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -254,7 +254,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 경복궁입니다", "correct","3.경복궁",3
+                                    "다음 문제 위치는 경복궁입니다", "correct","3.경복궁",3,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -264,7 +264,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.putInt("gogung_solved2" , 0) // 값 넣기
                         edit?.apply() // 적용하기
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -282,7 +282,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 경회루입니다", "correct","4.경회루",4
+                                    "다음 문제 위치는 경회루입니다", "correct","4.경회루",4,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -293,7 +293,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.apply() // 적용하기
                         //Toast.makeText(this,"오답입니다, 다시 풀어보겠습니까?", Toast.LENGTH_LONG).show()
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",3
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",3,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -309,7 +309,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 경복궁입니다", "correct","5.경복궁",5
+                                    "다음 문제 위치는 경복궁입니다", "correct","5.경복궁",5,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -320,7 +320,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.apply() // 적용하기
                         //Toast.makeText(this,"오답입니다, 다시 풀어보겠습니까?", Toast.LENGTH_LONG).show()
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",4
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",4,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -336,7 +336,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 동십자각입니다", "correct","6.동십자각",6
+                                    "다음 문제 위치는 동십자각입니다", "correct","6.동십자각",6,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -347,7 +347,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.apply() // 적용하기
                         //Toast.makeText(this,"오답입니다, 다시 풀어보겠습니까?", Toast.LENGTH_LONG).show()
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",5
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",5,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -362,7 +362,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 서울공예박물관입니다", "correct","7.서울 공예 박물관",7
+                                    "다음 문제 위치는 서울공예박물관입니다", "correct","7.서울 공예 박물관",7,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -372,7 +372,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.putInt("dongsibjagak_solved" , 0) // 값 넣기
                         edit?.apply() // 적용하기
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",6
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",6,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -388,7 +388,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 우리소리박물관입니다", "correct","8.우리 소리 박물관",8
+                                    "다음 문제 위치는 우리소리박물관입니다", "correct","8.우리 소리 박물관",8,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -398,7 +398,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.putInt("gongyae_solved" , 0) // 값 넣기
                         edit?.apply() // 적용하기
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",7
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",7,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -425,7 +425,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                             val dialog = QuizDialog(
                                 this, "정답입니다!  " +
                                         "모든 문제를 맞추셨습니다! " +
-                                        "코스가 종료됩니다", "end","end",2
+                                        "코스가 종료됩니다", "end","end",2,address
                             )
                             dialog.isCancelable = false
                             dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -433,7 +433,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                             val dialog = QuizDialog(
                                 this, "정답입니다!  " +
                                         "안 푼 문제가 있습니다. " +
-                                        "남은 문제를 풀어주세요", "end","notend",2
+                                        "남은 문제를 풀어주세요", "end","notend",2,address
                             )
                             dialog.isCancelable = false
                             dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -445,7 +445,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.putInt("sori_solved" , 0) // 값 넣기
                         edit?.apply() // 적용하기
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",8
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",8,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -453,9 +453,10 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                 }
             }
 
-            else if(address=="suwon"){
+            else if(address=="suwon"||address == "suwon-success"){
 
                 if(inf["name"] == "1.화성행궁광장"){ // 국립고궁박물관 문제
+                    binding.coursename.text = "수원화성 코스 - 화성행궁광장"
                     if(answer.toString() == hanggung_answer){ //정답
 
                         edit?.putInt("hanggung_solved" , 1) // 값 넣기
@@ -463,7 +464,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 국립고궁박물관입니다", "correct","2.국립 고궁 박물관",2
+                                    "다음 문제 위치는 수원시립미술관입니다", "correct","2.수원시립미술관",2,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -475,14 +476,14 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         //Toast.makeText(this,"오답입니다, 다시 풀어보겠습니까?", Toast.LENGTH_LONG).show()
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",1
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",1,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
                     }
                 }
                 else if(inf["name"] == "2.수원시립미술관"){ // 국립고궁박물관2 문제
-                    binding.coursename.text = "경복궁 코스 - 국립 고궁 박물관2"
+                    binding.coursename.text = "수원화성 코스 - 수원시립미술관"
                     if(answer.toString() == artmuseum_answer){ //정답
 
                         edit?.putInt("artmuseum_solved" , 1) // 값 넣기
@@ -490,7 +491,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 경복궁입니다", "correct","3.경복궁",3
+                                    "다음 문제 위치는 한옥기술전시관입니다", "correct","3.한옥기술전시관",3,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -500,14 +501,14 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.putInt("artmuseum_solved" , 0) // 값 넣기
                         edit?.apply() // 적용하기
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
                     }
                 }
                 else if(inf["name"] == "3.한옥기술전시관"){ // 국립고궁박물관2 문제
-                    binding.coursename.text = "경복궁 코스 - 국립 고궁 박물관2"
+                    binding.coursename.text = "수원화성 코스 - 한옥기술전시관"
                     if(answer.toString() == hanok_answer){ //정답
 
                         edit?.putInt("hanok_solved" , 1) // 값 넣기
@@ -515,7 +516,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 경복궁입니다", "correct","3.경복궁",3
+                                    "다음 문제 위치는 장안문입니다", "correct","4.장안문",4,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -525,14 +526,14 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.putInt("hanok_solved" , 0) // 값 넣기
                         edit?.apply() // 적용하기
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
                     }
                 }
                 else if(inf["name"] == "4.장안문"){ // 국립고궁박물관2 문제
-                    binding.coursename.text = "경복궁 코스 - 국립 고궁 박물관2"
+                    binding.coursename.text = "수원화성 코스 - 장안문"
                     if(answer.toString() == janganmoon_answer){ //정답
 
                         edit?.putInt("janganmoon_solved" , 1) // 값 넣기
@@ -540,7 +541,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 경복궁입니다", "correct","3.경복궁",3
+                                    "다음 문제 위치는 북서포루입니다", "correct","5.북서포루",5,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -550,14 +551,14 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.putInt("janganmoon_solved" , 0) // 값 넣기
                         edit?.apply() // 적용하기
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
                     }
                 }
                 else if(inf["name"] == "5.북서포루"){ // 국립고궁박물관2 문제
-                    binding.coursename.text = "경복궁 코스 - 국립 고궁 박물관2"
+                    binding.coursename.text = "수원화성 코스 - 북서포루"
                     if(answer.toString() == booksuporu_answer){ //정답
 
                         edit?.putInt("booksuporu_solved" , 1) // 값 넣기
@@ -565,7 +566,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
 
                         val dialog = QuizDialog(
                             this, "정답입니다!  " +
-                                    "다음 문제 위치는 경복궁입니다", "correct","3.경복궁",3
+                                    "다음 문제 위치는 화서문입니다", "correct","6.화서문",6,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -575,14 +576,14 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.putInt("booksuporu_solved" , 0) // 값 넣기
                         edit?.apply() // 적용하기
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",2,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")
                     }
                 }
                 else if(inf["name"] == "6.화서문"){ // 우리소리박물관 문제
-                    binding.coursename.text = "경복궁 코스 - 우리소리박물관"
+                    binding.coursename.text = "수원화성 코스 - 화서문"
                     if(answer.toString() == hwasumoon_answer){ //정답
 
                         edit?.putInt("hwasumoon_solved" , 1) // 값 넣기
@@ -591,18 +592,17 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         val pref = getSharedPreferences("solved_problem_count", AppCompatActivity.MODE_PRIVATE) //shared key 설정
                         val edit = pref?.edit() // 수정모드
 
-                        val gyungbukcourse = pref?.getInt("gogung_solved",0)?.plus(pref?.getInt("gogung_solved2",0)!!)
-                            ?.plus(pref?.getInt("gyungbuk_solved",0)!!)?.plus(pref?.getInt("gyungbuk_solved2",0)!!)
-                            ?.plus(pref?.getInt("gongyae_solved",0)!!)?.plus(pref?.getInt("sori_solved",0)!!
-                            )?.plus(pref?.getInt("gyunghiru_solved",0)!!)
-                            ?.plus(pref?.getInt("dongsibjagak_solved",0)!!)
+                        val suwoncourse = pref?.getInt("hanggung_solved",0)?.plus(pref?.getInt("artmuseum_solved",0)!!)
+                            ?.plus(pref?.getInt("hanok_solved",0)!!)?.plus(pref?.getInt("janganmoon_solved",0)!!)
+                            ?.plus(pref?.getInt("booksuporu_solved",0)!!)?.plus(pref?.getInt("hwasumoon_solved",0)!!
+                            )
 
 
-                        if(gyungbukcourse == 8){//모든 문제가 다 풀렸으면
+                        if(suwoncourse == 6){//모든 문제가 다 풀렸으면
                             val dialog = QuizDialog(
                                 this, "정답입니다!  " +
                                         "모든 문제를 맞추셨습니다! " +
-                                        "코스가 종료됩니다", "end","end",2
+                                        "코스가 종료됩니다", "end","end",2,address
                             )
                             dialog.isCancelable = false
                             dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -610,7 +610,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                             val dialog = QuizDialog(
                                 this, "정답입니다!  " +
                                         "안 푼 문제가 있습니다. " +
-                                        "남은 문제를 풀어주세요", "end","notend",2
+                                        "남은 문제를 풀어주세요", "end","notend",2,address
                             )
                             dialog.isCancelable = false
                             dialog.show(supportFragmentManager!!, "ConfirmDialog")
@@ -622,7 +622,7 @@ class QuizActivity :AppCompatActivity(), ConfirmDialogInterface {
                         edit?.putInt("hwasumoon_solved" , 0) // 값 넣기
                         edit?.apply() // 적용하기
                         val dialog = QuizDialog(
-                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",8
+                            this, "오답입니다, 다시 풀어보겠습니까?","wrong","gogung",8,address
                         )
                         dialog.isCancelable = false
                         dialog.show(supportFragmentManager!!, "ConfirmDialog")

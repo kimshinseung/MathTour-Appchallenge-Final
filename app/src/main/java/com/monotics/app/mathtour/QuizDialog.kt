@@ -12,7 +12,7 @@ import com.monotics.app.mathtour.databinding.DialogConfirmBinding
 
 class QuizDialog(
     confirmDialogInterface: QuizActivity,
-    text: String, ox: String , name: String , tag: Int
+    text: String, ox: String , name: String , tag: Int, address : String
 ) : DialogFragment() {
 
     // 뷰 바인딩 정의
@@ -25,6 +25,7 @@ class QuizDialog(
     private var ox: String? = null
     private var name: String? = null
     private var tag: Int?= null
+    private var address : String ?= null
 
 
     init {
@@ -33,6 +34,7 @@ class QuizDialog(
         this.confirmDialogInterface = confirmDialogInterface
         this.name = name
         this.tag = tag
+        this.address = address
     }
 
     override fun onCreateView(
@@ -63,7 +65,8 @@ class QuizDialog(
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 val itemList = hashMapOf(
                     "tag" to tag,
-                    "name" to name
+                    "name" to name,
+                    "address" to address
                 )
                 intent.putExtra("map",itemList)
                 activity?.startActivity(intent)
@@ -78,29 +81,46 @@ class QuizDialog(
             // 힌트확인하기
             binding.noButton.setOnClickListener {
 
-                if(tag == 1) {
-                    binding.confirmTextView.text = "b에는 0이 들어갑니다."
-                }
-                else if(tag == 2) {
-                    binding.confirmTextView.text = "x1!=x2일 때, y-y1 = (y2-y1)/(x2-x1) * (x-x1)입니다."
-                }
-                else if(tag == 3) {
-                    binding.confirmTextView.text = "순열 - 8C5"
-                }
-                else if(tag == 4) {
-                    binding.confirmTextView.text = "한 변의 길이는 45cm입니다."
-                }
-                else if(tag == 5) {
-                    binding.confirmTextView.text = "r은 10입니다."
-                }
-                else if(tag == 6) {
-                    binding.confirmTextView.text = "제 2사분면은 90도와 180도 사이에 있습니다"
-                }
-                else if(tag == 7) {
-                    binding.confirmTextView.text = "노란 원의 반지름은 1입니다."
-                }
-                else if(tag == 8) {
-                    binding.confirmTextView.text = "시그모이드함수는 모든 사분면을 지납니다."
+                if(address=="gyungbuk"||address == "gyungbuk-success") {
+
+                    if (tag == 1) {
+                        binding.confirmTextView.text = "모든 수를 더하세요"
+                    } else if (tag == 2) {
+                        binding.confirmTextView.text =
+                            "x1!=x2일 때, y-y1 = (y2-y1)/(x2-x1) * (x-x1)입니다."
+                    } else if (tag == 3) {
+                        binding.confirmTextView.text = "순열 - 8C5"
+                    } else if (tag == 4) {
+                        binding.confirmTextView.text = "한 변의 길이는 45cm입니다."
+                    } else if (tag == 5) {
+                        binding.confirmTextView.text = "25%는 4분의 1입니다."
+                    } else if (tag == 6) {
+                        binding.confirmTextView.text = "제 2사분면은 90도와 180도 사이에 있습니다"
+                    } else if (tag == 7) {
+                        binding.confirmTextView.text = "반지름의 제곱은 100입니다."
+                    } else if (tag == 8) {
+                        binding.confirmTextView.text = "직접 현장을 방문해보세요!"
+                    }
+                }else if(address =="suwon"||address == "suwon-success"){
+                    if(tag == 1){
+                        binding.confirmTextView.text = "사각형의 넓이공식은 가로 x 세로입니다."
+                    }
+                    else if(tag == 2){
+                        binding.confirmTextView.text = "1.6x = 3.2 입니다."
+                    }
+                    else if(tag == 3){
+                        binding.confirmTextView.text = "공식을 자세히 한 번 봐보세요!"
+                    }
+                    else if(tag == 4){
+                        binding.confirmTextView.text = "정답은 25kg입니다"
+                    }
+                    else if(tag == 5){
+                        binding.confirmTextView.text = "피타고라스의 정리를 이용하면 됩니다!"
+                    }
+                    else if(tag == 6){
+                        binding.confirmTextView.text = "부피는 가로x세로x높이입니다!"
+                    }
+
                 }
 
 

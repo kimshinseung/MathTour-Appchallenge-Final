@@ -37,7 +37,8 @@ class MyPageFragment : Fragment() {
         val pref2 =activity?.getSharedPreferences("solved_course", AppCompatActivity.MODE_PRIVATE) //shared key 설정
         val edit2 = pref2?.edit() // 수정모드
 
-        val completecourse = pref2?.getInt("solved_course1",0)
+        val completecourse =
+            pref2?.getInt("solved_course1",0)?.plus(pref2?.getInt("solved_course14",0)!!)
         binding.courseBtn.text = "${completecourse}/17"
 
         binding.one.isChecked = true
@@ -48,6 +49,11 @@ class MyPageFragment : Fragment() {
             ?.plus(pref?.getInt("gongyae_solved",0)!!)?.plus(pref?.getInt("sori_solved",0)!!
             )?.plus(pref?.getInt("gyunghiru_solved",0)!!)
             ?.plus(pref?.getInt("dongsibjagak_solved",0)!!)
+
+        val suwoncourse = pref?.getInt("hanggung_solved",0)?.plus(pref?.getInt("artmuseum_solved",0)!!)
+            ?.plus(pref?.getInt("hanok_solved",0)!!)?.plus(pref?.getInt("janganmoon_solved",0)!!)
+            ?.plus(pref?.getInt("booksuporu_solved",0)!!)?.plus(pref?.getInt("hwasumoon_solved",0)!!
+            )
 
         binding.score.text = gyungbukcourse.toString()
 
@@ -84,8 +90,7 @@ class MyPageFragment : Fragment() {
                     .toString()
                 R.id.thirtin -> binding.score.text = activity?.getSharedPreferences("solved_problem_count", 0)?.getInt("problem_solved" + 13, 0)
                     .toString()
-                R.id.fourtin -> binding.score.text = activity?.getSharedPreferences("solved_problem_count", 0)?.getInt("problem_solved" + 14, 0)
-                    .toString()
+                R.id.fourtin -> binding.score.text = suwoncourse.toString()
                 R.id.fivetin -> binding.score.text = activity?.getSharedPreferences("solved_problem_count", 0)?.getInt("problem_solved" + 15, 0)
                     .toString()
                 R.id.sixtin -> binding.score.text = activity?.getSharedPreferences("solved_problem_count", 0)?.getInt("problem_solved" + 16, 0)
