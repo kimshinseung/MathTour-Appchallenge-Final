@@ -115,7 +115,7 @@ class QuizDialog(
                         binding.confirmTextView.text = "정답은 25kg입니다"
                     }
                     else if(tag == 5){
-                        binding.confirmTextView.text = "피타고라스의 정리를 이용하면 됩니다!"
+                        binding.confirmTextView.text = "피타고라스의 정리를 이용하세요"
                     }
                     else if(tag == 6){
                         binding.confirmTextView.text = "부피는 가로x세로x높이입니다!"
